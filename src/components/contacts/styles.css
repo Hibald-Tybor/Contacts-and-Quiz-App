@@ -2,7 +2,7 @@
     margin: auto;
     border: 1px solid black;
     width: 300px;
-    height: 300px;
+    height: 250px;
     padding: 25px;
     display: flex;
     flex-direction: column;
@@ -21,10 +21,11 @@
   }
 
 .contact-container {
+    position: relative;
     border: 1px solid black;
     border-radius: 5px;
     margin: 10px;
-    width: 200px;
+    width: 250px;
     height: 150px;
     display: flex;
     flex-direction: column;
@@ -41,7 +42,7 @@
 }
 
 .contact-list {
-    width: 750px;
+    width: 900px;
     padding: 25px;
     margin-top: 25px;
     margin-left: auto;
@@ -49,13 +50,34 @@
     border-top: 2px solid black;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
-.edit-contact-form {
-    width: 300px;
-    height: 325px;
-    margin-top: 50px;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: white;
+.edit-button-container {
+    display: flex;
+    justify-content: space-between
+}
+
+.icon-container {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+.contact-icon {
+    margin-left: 10px;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.contact-icon-visible {
+    margin-left: 10px;
+    cursor: pointer;
+    opacity: 1;
+}
+
+.add-contact-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
