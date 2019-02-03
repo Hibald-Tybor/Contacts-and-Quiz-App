@@ -8,15 +8,20 @@ export default class Contact extends React.Component {
 
         this.state = { iconVisible: false };
 
-        this.handleHover = this.handleHover.bind(this);
+        this.handleMouseEnter = this.handleMouseEnter.bind(this);
+        this.handleMouseLeave = this.handleMouseLeave.bind(this);
     }
 
     
-    handleHover() {
-        this.setState((preveState) => {
-            return {
-                iconVisible: !preveState.iconVisible
-            }
+    handleMouseEnter() {
+        this.setState({
+            iconVisible: true
+        })
+    }
+
+    handleMouseLeave() {
+        this.setState({
+            iconVisible: false
         })
     }
 
@@ -24,7 +29,7 @@ export default class Contact extends React.Component {
         const { contact } = this.props;
 
         return (
-            <div className="contact-container" onMouseEnter={this.handleHover} onMouseLeave={this.handleHover}>
+            <div className="contact-container" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
                 <span className="contact-name">{contact.name}</span>
                 <span className="contact-email">{contact.email}</span>
                 <span className="contact-phone">{contact.phone}</span>
