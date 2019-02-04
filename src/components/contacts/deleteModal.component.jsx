@@ -21,7 +21,7 @@ const DeleteModal = (props) => {
                 </div>
                 <div className="edit-button-container">
                     <button className="btn btn-light btn-lg" onClick={() => props.handleHide('delete')}>Zrušit</button>
-                    <button className="btn btn-danger btn-lg" onClick={() => props.handleDelete(props.selectedContact.key)}>Smazat</button>
+                    <button className="btn btn-danger btn-lg" onClick={() => props.handleDelete(props.selectedContact._id)}>Smazat</button>
                 </div>
             </Modal.Body>
         </Modal>

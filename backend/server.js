@@ -63,6 +63,22 @@ contactRoute.route('/update/:id').post((req, res) => {
     })
 })
 
+contactRoute.route('/delete/:id').delete((req, res) => {
+    Contact.findById(req.params.id, (err, contact) => {
+        if (!contact) {
+            res.status(404).send('contact not found')
+        } else {
+            contact.delete()
+            .then((response) => {
+                res.status(200).send(response)
+            })
+            .catch((err) => {
+                res.status(404).send(err)
+            })
+        }
+    })
+})
+
 
 app.listen(PORT, () => {
     console.log(`Now listening on port ${PORT}`);

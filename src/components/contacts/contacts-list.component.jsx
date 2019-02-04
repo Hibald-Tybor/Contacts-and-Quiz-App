@@ -7,12 +7,6 @@ import Contact from './contact.component';
 import EditModal from './editModal.component';
 import DeleteModal from './deleteModal.component';
 
-function filterContacts(contacts, key) {
-    return contacts.filter(contact => {
-        return contact.key !== key;
-    });
-}
-
 export default class ContactsList extends Component {
 
     constructor(props) {
@@ -58,26 +52,6 @@ export default class ContactsList extends Component {
         this.getContacts();
     }
 
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     const { contacts, isDeleteModalOpen, isEditModalOpen, formName, formEmail, formPhone, selectedContact} = this.state;
-
-    //     if (contacts.length !== nextState.contacts.length ||
-    //         isDeleteModalOpen !== nextState.isDeleteModalOpen ||
-    //         isEditModalOpen !== nextState.isEditModalOpen ||
-    //         formName !== nextState.formName ||
-    //         formEmail !== nextState.formEmail ||
-    //         formPhone !== nextState.formPhone ||
-    //         selectedContact !== nextState.selectedContact
-    //         ) {
-    //             return true
-    //         }
-    //         return false
-    // }
-
-    componentDidUpdate() {
-        this.getContacts();
-    }
-
     handleSubmit(e) {
         e.preventDefault();
 
@@ -90,6 +64,7 @@ export default class ContactsList extends Component {
         axios.post('http://localhost:4000/contacts/add/', newContact)
             .then(response => {
                 console.log('Creation success')
+                this.getContacts()
             }).catch(err => {
                 console.log(err);
             });
@@ -105,42 +80,34 @@ export default class ContactsList extends Component {
     handleUpdate(e, newContact) {
         e.preventDefault();
 
-        // this.setState((prevState) => {
-        //     let updatedContacts = prevState.contacts.map(oldContact => {
-        //         if (oldContact.key === newContact.key) {
-        //             return Object.assign(oldContact, newContact);
-        //         }
-        //         return oldContact
-        //     })
-
-        //     return {
-        //         contacts: updatedContacts,
-        //         isEditModalOpen: false
-        //     }
-        // })
-
-        const contactToSend = {
+    const contactToSend = {
             name: newContact.name,
             email: newContact.email,
             phone: newContact.phone
         }
 
         axios.post('http://localhost:4000/contacts/update/' + newContact._id, contactToSend)
-            .then(response => console.log('Update success'))
+            .then(response => this.getContacts())
             .catch(err => console.log(err));
 
         this.setState({
             isEditModalOpen: false,
             readyForFetch: true
         })
+
     }
 
-
-    handleDelete(key) {
-        let remainingContacts = filterContacts(this.state.contacts, key)
+    handleDelete(id) {
+       
+        axios.delete('http://localhost:4000/contacts/delete/' + id)
+        .then((response) => {
+            this.getContacts();
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 
         this.setState({
-            contacts: remainingContacts,
             isDeleteModalOpen: false
         })
     }
@@ -181,7 +148,7 @@ export default class ContactsList extends Component {
 
     listContacts() {
         return this.state.contacts.map((currentContact, i) => {
-            return <Contact handleShow={this.handleShow} handleDelete={this.handleDelete} contact={currentContact} key={currentContact.key} />;
+            return <Contact handleShow={this.handleShow} contact={currentContact} key={currentContact._id} />;
         })
     }
 
