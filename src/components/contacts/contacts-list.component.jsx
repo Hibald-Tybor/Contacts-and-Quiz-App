@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import './styles.css';
 
@@ -28,6 +29,8 @@ export default class ContactsList extends Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
 
+        this.getContacts = this.getContacts.bind(this);
+
 
 
         this.state = {
@@ -44,7 +47,19 @@ export default class ContactsList extends Component {
         }
     };
 
+    getContacts() {
+        axios.get('http://localhost:4000/contacts', () => {
+            console.log('received contacts successfully')
+        }).then(response => {
+            this.setState({contacts: [...response.data]});
+        }).catch(err => {
+            console.log(err);
+        })
+    }
 
+    componentDidMount() {
+        this.getContacts();
+    }
 
     handleSubmit(e) {
         e.preventDefault();
