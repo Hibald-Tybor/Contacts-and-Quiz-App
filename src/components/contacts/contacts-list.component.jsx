@@ -38,7 +38,6 @@ export default class ContactsList extends Component {
             formEmail: '',
             formPhone: '',
             selectedContact: {},
-            iconVisible: false,
             // I used just a simple identifier, otherwise a database ID would be more suitable
             contactCounter: 0
         }
@@ -132,7 +131,7 @@ export default class ContactsList extends Component {
 
     listContacts() {
         return this.state.contacts.map((currentContact, i) => {
-            return <Contact handleShow={this.handleShow} handleDelete={this.handleDelete} contact={currentContact} key={currentContact.key} />;
+            return <Contact handleShow={this.handleShow} contact={currentContact} key={currentContact.key} />;
         })
     }
 
