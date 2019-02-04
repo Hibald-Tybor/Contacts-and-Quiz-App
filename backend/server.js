@@ -34,6 +34,35 @@ contactRoute.route('/').get((req, res) => {
     })
 });
 
+contactRoute.route('/add').post((req, res) => {
+    let contact = new Contact(req.body);
+    contact.save()
+    .then((contact) => {
+        res.status(201).send('Contact saved')
+    })
+    .catch((err) => {
+        res.status(400).send('Invalid request')
+    })
+})
+
+contactRoute.route('/update/:id').post((req, res) => {
+    Contact.findById(req.params.id, (err, contact) => {
+        if (!contact) {
+            res.status(404).send('contact not found');
+        } else {
+            contact = Object.assign(contact, req.body);
+
+            contact.save()
+            .then(contact => {
+                res.status(201).send('contact updated')
+            })
+            .catch(err => {
+                res.status(400).send('update not possible')
+            })
+        }
+    })
+})
+
 
 app.listen(PORT, () => {
     console.log(`Now listening on port ${PORT}`);

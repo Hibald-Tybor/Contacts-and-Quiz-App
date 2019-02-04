@@ -41,17 +41,14 @@ export default class ContactsList extends Component {
             formEmail: '',
             formPhone: '',
             selectedContact: {},
-            iconVisible: false,
-            // I used just a simple identifier, otherwise a database ID would be more suitable
-            contactCounter: 0
         }
     };
 
     getContacts() {
-        axios.get('http://localhost:4000/contacts', () => {
+        axios.get('http://localhost:4000/contacts/', () => {
             console.log('received contacts successfully')
         }).then(response => {
-            this.setState({contacts: [...response.data]});
+            this.setState({ contacts: [...response.data] });
         }).catch(err => {
             console.log(err);
         })
@@ -61,43 +58,80 @@ export default class ContactsList extends Component {
         this.getContacts();
     }
 
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     const { contacts, isDeleteModalOpen, isEditModalOpen, formName, formEmail, formPhone, selectedContact} = this.state;
+
+    //     if (contacts.length !== nextState.contacts.length ||
+    //         isDeleteModalOpen !== nextState.isDeleteModalOpen ||
+    //         isEditModalOpen !== nextState.isEditModalOpen ||
+    //         formName !== nextState.formName ||
+    //         formEmail !== nextState.formEmail ||
+    //         formPhone !== nextState.formPhone ||
+    //         selectedContact !== nextState.selectedContact
+    //         ) {
+    //             return true
+    //         }
+    //         return false
+    // }
+
+    componentDidUpdate() {
+        this.getContacts();
+    }
+
     handleSubmit(e) {
         e.preventDefault();
 
-        this.setState((prevState) => {
-            let newContact = {
-                key: this.state.contactCounter,
-                name: this.state.formName,
-                email: this.state.formEmail,
-                phone: this.state.formPhone
-            }
+        let newContact = {
+            name: this.state.formName,
+            email: this.state.formEmail,
+            phone: this.state.formPhone
+        };
 
-            return {
-                contacts: [...prevState.contacts, newContact],
-                formName: '',
-                formEmail: '',
-                formPhone: '',
-                contactCounter: prevState.contactCounter + 1
-            }
-        })
+        axios.post('http://localhost:4000/contacts/add/', newContact)
+            .then(response => {
+                console.log('Creation success')
+            }).catch(err => {
+                console.log(err);
+            });
 
+        this.setState({
+            formName: '',
+            formEmail: '',
+            formPhone: '',
+            readyForFetch: true
+        });
     }
 
     handleUpdate(e, newContact) {
         e.preventDefault();
 
-        this.setState((prevState) => {
-            let updatedContacts = prevState.contacts.map(oldContact => {
-                if (oldContact.key === newContact.key) {
-                    return Object.assign(oldContact, newContact);
-                }
-                return oldContact
-            })
-            
-            return {
-                contacts: updatedContacts,
-                isEditModalOpen: false
-            }
+        // this.setState((prevState) => {
+        //     let updatedContacts = prevState.contacts.map(oldContact => {
+        //         if (oldContact.key === newContact.key) {
+        //             return Object.assign(oldContact, newContact);
+        //         }
+        //         return oldContact
+        //     })
+
+        //     return {
+        //         contacts: updatedContacts,
+        //         isEditModalOpen: false
+        //     }
+        // })
+
+        const contactToSend = {
+            name: newContact.name,
+            email: newContact.email,
+            phone: newContact.phone
+        }
+
+        axios.post('http://localhost:4000/contacts/update/' + newContact._id, contactToSend)
+            .then(response => console.log('Update success'))
+            .catch(err => console.log(err));
+
+        this.setState({
+            isEditModalOpen: false,
+            readyForFetch: true
         })
     }
 
@@ -125,7 +159,7 @@ export default class ContactsList extends Component {
 
     handleHide(diff) {
         let selectedModal = diff === 'edit' ? 'isEditModalOpen' : 'isDeleteModalOpen';
-      
+
         this.setState({
             [selectedModal]: false,
         })
@@ -154,15 +188,15 @@ export default class ContactsList extends Component {
     render() {
         return (
             <div>
-                <EditModal 
+                <EditModal
                     isModalOpen={this.state.isEditModalOpen}
                     handleHide={this.handleHide}
                     selectedContact={this.state.selectedContact}
                     handleEdit={this.handleEdit}
                     handleUpdate={this.handleUpdate}
-                
+
                 />
-                <DeleteModal 
+                <DeleteModal
                     isModalOpen={this.state.isDeleteModalOpen}
                     handleHide={this.handleHide}
                     selectedContact={this.state.selectedContact}
@@ -170,7 +204,7 @@ export default class ContactsList extends Component {
                 />
                 <form className="new-contact-form-container" onSubmit={this.handleSubmit} >
                     <div className="new-contact-form form-group">
-                    {/*For the sake of convenience and instructions not specifying it, the form is validated through HTML, otherwise a JS function with the use of regular expressions would do the work*/}
+                        {/*For the sake of convenience and instructions not specifying it, the form is validated through HTML, otherwise a JS function with the use of regular expressions would do the work*/}
                         <input value={this.state.formName} onChange={(event) => this.handleChange(event, "formName")} type="text" placeholder="Jméno *" className="form-control" required />
                         <input value={this.state.formEmail} onChange={(event) => this.handleChange(event, "formEmail")} type="email" placeholder="E-mail *" className="form-control" required />
                         <input value={this.state.formPhone} onChange={(event) => this.handleChange(event, "formPhone")} type="text" placeholder="Telefon" className="form-control" />
