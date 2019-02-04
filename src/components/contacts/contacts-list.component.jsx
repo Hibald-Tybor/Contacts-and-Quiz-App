@@ -39,17 +39,19 @@ export default class ContactsList extends Component {
             formPhone: '',
             selectedContact: {},
             iconVisible: false,
+            // I used just a simple identifier, otherwise a database ID would be more suitable
+            contactCounter: 0
         }
     };
 
-    contactCounter = 0;
+
 
     handleSubmit(e) {
         e.preventDefault();
 
         this.setState((prevState) => {
             let newContact = {
-                key: this.contactCounter,
+                key: this.state.contactCounter,
                 name: this.state.formName,
                 email: this.state.formEmail,
                 phone: this.state.formPhone
@@ -60,10 +62,10 @@ export default class ContactsList extends Component {
                 formName: '',
                 formEmail: '',
                 formPhone: '',
+                contactCounter: prevState.contactCounter + 1
             }
         })
 
-        this.contactCounter++;
     }
 
     handleUpdate(e, newContact) {
@@ -153,7 +155,7 @@ export default class ContactsList extends Component {
                 />
                 <form className="new-contact-form-container" onSubmit={this.handleSubmit} >
                     <div className="new-contact-form form-group">
-                    {/*For the sake of convenience, the form is validated through HTML, otherwise a JS function with the use of regular expressions would do the work*/}
+                    {/*For the sake of convenience and instructions not specifying it, the form is validated through HTML, otherwise a JS function with the use of regular expressions would do the work*/}
                         <input value={this.state.formName} onChange={(event) => this.handleChange(event, "formName")} type="text" placeholder="Jméno *" className="form-control" required />
                         <input value={this.state.formEmail} onChange={(event) => this.handleChange(event, "formEmail")} type="email" placeholder="E-mail *" className="form-control" required />
                         <input value={this.state.formPhone} onChange={(event) => this.handleChange(event, "formPhone")} type="text" placeholder="Telefon" className="form-control" />

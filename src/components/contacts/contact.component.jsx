@@ -12,7 +12,7 @@ export default class Contact extends React.Component {
         this.handleMouseLeave = this.handleMouseLeave.bind(this);
     }
 
-    
+    // The functionality is separate because otherwise there was a chance of reverting the hover effect
     handleMouseEnter() {
         this.setState({
             iconVisible: true
