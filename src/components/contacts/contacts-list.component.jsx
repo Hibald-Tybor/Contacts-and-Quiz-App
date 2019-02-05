@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import './styles.css';
+import './styles.scss';
 
 import Contact from './contact.component';
 import EditModal from './editModal.component';
@@ -170,13 +170,13 @@ export default class ContactsList extends Component {
                     handleDelete={this.handleDelete}
                 />
                 <form className="new-contact-form-container" onSubmit={this.handleSubmit} >
-                    <div className="new-contact-form form-group">
+                    <div className="new-contact-form">
                         {/*For the sake of convenience and instructions not specifying it, the form is validated through HTML, otherwise a JS function with the use of regular expressions would do the work*/}
-                        <input value={this.state.formName} onChange={(event) => this.handleChange(event, "formName")} type="text" placeholder="Jméno *" className="form-control" required />
-                        <input value={this.state.formEmail} onChange={(event) => this.handleChange(event, "formEmail")} type="email" placeholder="E-mail *" className="form-control" required />
-                        <input value={this.state.formPhone} onChange={(event) => this.handleChange(event, "formPhone")} type="text" placeholder="Telefon" className="form-control" />
+                        <input value={this.state.formName} onChange={(event) => this.handleChange(event, "formName")} type="text" placeholder="Jméno *" className="input-field" required />
+                        <input value={this.state.formEmail} onChange={(event) => this.handleChange(event, "formEmail")} type="email" placeholder="E-mail *" className="input-field" required />
+                        <input value={this.state.formPhone} onChange={(event) => this.handleChange(event, "formPhone")} type="text" placeholder="Telefon" className="input-field" />
                     </div>
-                    <input type="submit" className="add-contact-btn btn btn-primary" value="Přidat" />
+                    <input type="submit" className="add-contact-button" value="Přidat" />
                 </form>
                 <div className="contact-list">
                     {this.listContacts()}

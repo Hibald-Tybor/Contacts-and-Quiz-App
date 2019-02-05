@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+@import './variables.scss';
+
+
+body {
+    font-family: Montserrat;
+    background-color: $WC;
+    margin: 0px;
+}
+
+.page-container {
+  padding: 0px;
+    .navigation-container {
+        width: 100%;
+        background-color: $LBC;
+        display: flex;
+        justify-content: center;
+        .navlink {
+            color: $WC;
+            font-weight: 500;
+            text-decoration: none;
+            margin: 5px;
+            &:hover {
+              color: $DBC;
+            }
+        }
+    }
+}
