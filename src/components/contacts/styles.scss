@@ -1,5 +1,5 @@
 @import '../../App.scss';
-
+// Contact list component
 @-webkit-keyframes autofill {
     to {
         color: $WC;
@@ -31,6 +31,7 @@ input:-webkit-autofill {
         background-color: $LBC;
         border-bottom: 1px solid $DWC;
         color: $WC;
+        margin-bottom: 20px;
         &:focus {
             outline: none;
         }
@@ -39,10 +40,12 @@ input:-webkit-autofill {
         color: $DWC;
     }
     .add-contact-button {
+        width: 61px;
         border-radius: 5px;
         box-shadow: 0px 0px 2px 1px $WC;
         border: none;
         background-color: $WC;
+        cursor: pointer;
         &:focus {
             outline: none;
         }
@@ -50,39 +53,6 @@ input:-webkit-autofill {
             width: 63px;
         }
     }
-}
-
-.new-contact-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.new-contact-form>input {
-    width: 250px;
-    margin-bottom: 20px;
-}
-
-.contact-container {
-    position: relative;
-    background-color: $DLBC;
-    box-shadow: 0px 0px 5px 0px;
-    border-radius: 10px;
-    margin: 10px;
-    width: 250px;
-    height: 150px;
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
-}
-
-.contact-container>span {
-    margin-bottom: 5px;
-}
-
-.contact-name {
-    font-size: 20px;
-    font-weight: bold;
 }
 
 .contact-list {
@@ -97,25 +67,60 @@ input:-webkit-autofill {
     justify-content: center;
 }
 
-.edit-button-container {
+// Contact component
+.contact-container {
+    position: relative;
+    background-color: $DLBC;
+    box-shadow: 0px 0px 5px 0px;
+    border-radius: 10px;
+    margin: 10px;
+    width: 250px;
+    height: 150px;
     display: flex;
-    justify-content: space-between
+    flex-direction: column;
+    padding: 5px;
+    span {
+        margin-bottom: 5px;
+        word-wrap: break-word;
+    }
+    .contact-name {
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .icon-container {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+    }
+    .contact-icon {
+        margin-left: 10px;
+        cursor: pointer;
+        opacity: 0;
+    }
+    .contact-icon-visible {
+        margin-left: 10px;
+        cursor: pointer;
+        opacity: 1;
+    }
 }
 
-.icon-container {
-    position: absolute;
-    top: 10px;
-    right: 20px;
+// Edit Modal Component
+
+.edit-contact-form {
+    .input-field {
+        width: 275px;
+        border: none;
+        text-indent: 5px;
+        border-bottom: 1px solid $LBC;
+        color: black;
+        margin-bottom: 20px;
+        &:focus {
+            outline: none;
+        }
+    }
 }
 
-.contact-icon {
-    margin-left: 10px;
-    cursor: pointer;
-    opacity: 0;
-}
-
-.contact-icon-visible {
-    margin-left: 10px;
-    cursor: pointer;
-    opacity: 1;
+.edit-modal-button-container {
+    display: flex;
+    justify-content: space-between;
 }

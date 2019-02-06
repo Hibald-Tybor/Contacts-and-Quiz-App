@@ -1,53 +1,87 @@
 @import '../../App.scss';
-
 .quiz-container {
     border: 1px solid black;
     border-radius: 5px;
     width: 300px;
     height: 250px;
     margin: auto;
-}
-
-.button-container {
-    width: 125px;
-    height: 125px;
-    display: grid;
-    grid-template-columns: 35% 30% 35%;
-    grid-template-rows: 35% 30% 35%;  
- }
-
-.quiz-header {
-    border-bottom: 1px solid black;
-    padding: 10px;
-    background-color: lightgray;
-    width: -webkit-fill-available;
-    text-align: center;
-}
-
-.answer-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.button-0 {
-    grid-column: 1;
-    grid-row:1;
-    margin: auto;
-}
-.button-1 {
-    grid-column: 3;
-    grid-row:1;
-    margin: auto;
-}
-.button-2 {
-    grid-column: 1;
-    grid-row:3;
-    margin: auto;
-}
-.button-3 {
-    grid-column: 3;
-    grid-row:3;
-    margin: auto;
+    margin-top: 75px;
+    .answer-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .next-button {
+            width: 125px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 2px 1px $LOC;
+            border: none;
+            background-color: $LOC;
+            color: $WC;
+            cursor: pointer;
+            &:focus {
+                outline: none;
+            }
+            &:hover {
+                background-color: $OC;
+            }
+        }
+        .green-button {
+            background-color: greenyellow;
+        }
+        .red-button {
+            background-color: crimson;
+        }
+    }
+    .quiz-header {
+        border-bottom: 1px solid black;
+        padding: 10px;
+        background-color: $LBC;
+        color: $WC;
+        width: -webkit-fill-available;
+        text-align: center;
+    }
+    .button-container {
+        margin: auto;
+        width: 125px;
+        height: 125px;
+        display: grid;
+        grid-template-columns: 35% 30% 35%;
+        grid-template-rows: 35% 30% 35%;
+        .answer-button {
+            width: 45px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 2px 1px $LOC;
+            border: none;
+            background-color: $LOC;
+            color: $WC;
+            cursor: pointer;
+            &:focus {
+                outline: none;
+            }
+            &:hover {
+                background-color: $OC;
+            }
+        }
+        .button-0 {
+            grid-column: 1;
+            grid-row: 1;
+            margin: auto;
+        }
+        .button-1 {
+            grid-column: 3;
+            grid-row: 1;
+            margin: auto;
+        }
+        .button-2 {
+            grid-column: 1;
+            grid-row: 3;
+            margin: auto;
+        }
+        .button-3 {
+            grid-column: 3;
+            grid-row: 3;
+            margin: auto;
+        }
+    }
 }

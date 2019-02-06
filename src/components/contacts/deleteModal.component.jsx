@@ -16,10 +16,10 @@ const DeleteModal = (props) => {
 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <div className="new-contact-form form-group">
+                <div>
                     <p>Prosím potvrďte smazání kontaktu {props.selectedContact.name}</p>
                 </div>
-                <div className="edit-button-container">
+                <div className="edit-modal-button-container">
                     <button className="btn btn-light btn-lg" onClick={() => props.handleHide('delete')}>Zrušit</button>
                     <button className="btn btn-danger btn-lg" onClick={() => props.handleDelete(props.selectedContact._id)}>Smazat</button>
                 </div>

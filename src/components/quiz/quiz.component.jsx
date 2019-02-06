@@ -86,7 +86,7 @@ class Quiz extends React.Component {
     renderButtons() {
         return this.state.answers.map((answer, i) => {
             return (
-                <button onClick={() => this.handleAnswer(answer)} key={`button${i}`} className={`btn btn-primary button-${i}`}>{answer}</button>
+                <button onClick={() => this.handleAnswer(answer)} key={`button${i}`} className={`answer-button button-${i}`}>{answer}</button>
             )
         })
     }
@@ -101,18 +101,16 @@ class Quiz extends React.Component {
                                 <h2 className="quiz-header">Výsledek</h2>
                             <h3>{this.state.correctAnswer}</h3>
                             <p>{this.state.answeredCorrectly ? "Vaše odpověď byla správná! :)" : "Špatně. Zkus to znovu. :("}</p>
-                            <button onClick={this.createQA} className="btn btn-primary">Další otázka</button>
+                            <button onClick={this.createQA} className={`next-button ${this.state.answeredCorrectly ? 'green-button' : 'red-button'}`}>Další otázka</button>
                         </div>
                         :
-                        <div className="new-contact-form form-group">
+                        <div>
                             <h2 className="quiz-header">Kolik je {this.state.question}?</h2>
                             <div className="button-container">
                                 {this.renderButtons()}
                             </div>
                         </div>
                 }
-
-
             </div>
 
         )
