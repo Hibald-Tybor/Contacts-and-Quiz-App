@@ -80,8 +80,9 @@ input:-webkit-autofill {
     flex-direction: column;
     padding: 5px;
     span {
+        width: 225px;
         margin-bottom: 5px;
-        word-wrap: break-word;
+        overflow: hidden;
     }
     .contact-name {
         font-size: 20px;

@@ -93,26 +93,27 @@ class Quiz extends React.Component {
 
     render() {
         return (
-            <div className="quiz-container">
-                {
-                    this.state.answered
-                        ?
-                        <div className="answer-container">
+            <div>
+                <div className="quiz-container">
+                    {
+                        this.state.answered
+                            ?
+                            <div className="answer-container">
                                 <h2 className="quiz-header">Výsledek</h2>
-                            <h3>{this.state.correctAnswer}</h3>
-                            <p>{this.state.answeredCorrectly ? "Vaše odpověď byla správná! :)" : "Špatně. Zkus to znovu. :("}</p>
-                            <button onClick={this.createQA} className={`next-button ${this.state.answeredCorrectly ? 'green-button' : 'red-button'}`}>Další otázka</button>
-                        </div>
-                        :
-                        <div>
-                            <h2 className="quiz-header">Kolik je {this.state.question}?</h2>
-                            <div className="button-container">
-                                {this.renderButtons()}
+                                <h3>{this.state.correctAnswer}</h3>
+                                <p>{this.state.answeredCorrectly ? "Vaše odpověď byla správná! :)" : "Špatně. Zkus to znovu. :("}</p>
+                                <button onClick={this.createQA} className={`next-button ${this.state.answeredCorrectly ? 'green-button' : 'red-button'}`}>Další otázka</button>
                             </div>
-                        </div>
-                }
+                            :
+                            <React.Fragment>
+                                <h2 className="quiz-header">Kolik je {this.state.question}?</h2>
+                                <div className="button-container">
+                                    {this.renderButtons()}
+                                </div>
+                            </React.Fragment>
+                    }
+                </div>
             </div>
-
         )
     }
 }
